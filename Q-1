@@ -1,0 +1,26 @@
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+X = [[500,1,1],[700,2,1],[900,2,0],[1100,3,1],[1300,3,0]]
+y = [10000,15000,18000,22000,25000]
+
+model = LinearRegression()
+model.fit(X, y)
+
+X_test = [[700,2,1],[1100,3,1]]
+y_test = [15000,22000]
+
+predictions = model.predict(X_test)
+
+print("Actual Rent:")
+print(y_test)
+
+print("\nPredicted Rent:")
+print(predictions)
+
+accuracy = r2_score(y_test, predictions)
+print("\nR2 Score:", round(accuracy, 2))
+
+house = [[1200,3,1]]
+rent = model.predict(house)
+
+print("\nPredicted Rent:", round(rent[0], 2))
