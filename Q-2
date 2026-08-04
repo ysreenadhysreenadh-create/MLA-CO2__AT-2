@@ -1,0 +1,31 @@
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+X = [[5,4,3,4],[0,0,1,0],[3,2,4,3],[0,0,0,0]]
+y = [1,0,1,0]
+
+model = LogisticRegression()
+model.fit(X, y)
+
+
+X_test = [[5,4,3,4],[0,0,1,0]]
+y_test = [1,0]
+
+predictions = model.predict(X_test)
+
+print("Actual Labels:")
+print(y_test)
+
+print("\nPredicted Labels:")
+print(predictions)
+
+accuracy = accuracy_score(y_test, predictions)
+print("\nAccuracy:", accuracy * 100, "%")
+
+email = [[4,3,2,5]]
+result = model.predict(email)
+
+if result[0] == 1:
+    print("\nPrediction: Spam Email")
+else:
+    print("\nPrediction: Non-Spam Email")
