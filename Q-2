@@ -1,1 +1,25 @@
+from sklearn.linear_model import LogisticRegression
 
+# Training Data
+X = [
+    [5,4,3,4],
+    [0,0,1,0],
+    [3,2,4,3],
+    [0,0,0,0]
+]
+
+y = [1,0,1,0]   # 1 = Spam, 0 = Non-Spam
+
+model = LogisticRegression()
+model.fit(X, y)
+
+email = [[4,3,2,5]]
+result = model.predict(email)
+
+print("Spam Email Classification")
+print("-------------------------")
+
+if result[0] == 1:
+    print("Prediction: Spam Email")
+else:
+    print("Prediction: Non-Spam Email")
