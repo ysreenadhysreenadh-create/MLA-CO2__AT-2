@@ -1,0 +1,52 @@
+# Apartment Rent Prediction using Linear Regression
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+
+# Sample Dataset
+data = {
+    'Floor_Area': [500, 700, 900, 1100, 1300, 1500, 1700, 1900],
+    'Rooms': [1, 2, 2, 3, 3, 4, 4, 5],
+    'Location': ['Urban', 'Urban', 'Suburban', 'Urban', 'Suburban', 'Urban', 'Suburban', 'Urban'],
+    'Rent': [10000, 15000, 18000, 22000, 25000, 30000, 32000, 38000]
+}
+
+# Create DataFrame
+df = pd.DataFrame(data)
+
+# Convert Location into Numeric Values
+df = pd.get_dummies(df, columns=['Location'], drop_first=True)
+
+# Features and Target
+X = df[['Floor_Area', 'Rooms', 'Location_Urban']]
+y = df['Rent']
+
+# Split Dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# Train Linear Regression Model
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Predict Rent for Test Data
+predictions = model.predict(X_test)
+
+print("Actual Rent:")
+print(y_test.values)
+
+print("\nPredicted Rent:")
+print(predictions)
+
+# Predict Rent for New Apartment
+new_apartment = pd.DataFrame({
+    'Floor_Area': [1200],
+    'Rooms': [3],
+    'Location_Urban': [1]   # 1 = Urban, 0 = Suburban
+})
+
+predicted_rent = model.predict(new_apartment)
+
+print("\nPredicted Rent for New Apartment: ₹", round(predicted_rent[0], 2))
