@@ -1,1 +1,35 @@
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score
 
+# Training Data
+X = [[1,1,1],[1,0,1],[0,1,0],[0,0,0]]
+y = [1,1,0,0]
+
+# Train Model
+model = GaussianNB()
+model.fit(X, y)
+
+# Test Data
+X_test = [[1,1,1],[0,0,0]]
+y_test = [1,0]
+
+# Prediction
+predictions = model.predict(X_test)
+
+print("Actual Result:")
+print(y_test)
+
+print("\nPredicted Result:")
+print(predictions)
+
+accuracy = accuracy_score(y_test, predictions)
+print("\nAccuracy:", accuracy * 100, "%")
+
+# New Patient Prediction
+patient = [[1,1,1]]
+result = model.predict(patient)
+
+if result[0] == 1:
+    print("\nPrediction: Patient Has Flu")
+else:
+    print("\nPrediction: Patient Does Not Have Flu")
